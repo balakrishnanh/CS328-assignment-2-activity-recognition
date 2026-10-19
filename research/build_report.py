@@ -45,7 +45,7 @@ def img(path, w):
     return Image(path, width=w, height=w * ih / iw)
 
 s = []
-s.append(P('CS328 A2 — Activity Classification: Exploration Report', h1))
+s.append(P('CS328 A2: Activity Classification Exploration Report', h1))
 s.append(P('Data: 615 Class_Data recordings (Sensor Logger phones, gravity removed) and 35 Sample_Data recordings '
            '(wrist device, 5 people). Every number comes from the submitted notebook (<i>results.json</i>). '
            '"Split" is the notebook\'s 70/30 random window split. Because it puts windows of the same recording on both sides, '
@@ -117,7 +117,7 @@ s.append(P(f'<b>How we chose.</b> Greedy forward selection over 90 research cand
            f're-implemented per window in add_my_features ({N} candidates kept there); the order '
            'above is the order of selection. The rubric suggests 5-8 features: the first 8 alone reach '
            f'{p(c8["rf_grouped_cv"])}, and we kept 20 ({p(fin["rf_grouped_cv"])}) because the remaining errors are in the hardest '
-           'classes and every point there counts. <b>Honest note:</b> leave-one-out changes grouped CV by ≤1.6 points for every '
+           'classes and those were the classes we most wanted to fix. <b>One caveat:</b> leave-one-out changes grouped CV by ≤1.6 points for every '
            'feature (several within ±0.5, i.e. fold noise), so the information is spread across correlated features rather than '
            f'carried by any one of them. Adding all {N} candidates is <i>worse</i> than our 20 (noise features dilute the forest).', body))
 
@@ -247,7 +247,7 @@ s.append(P(f'<b>Third largest, for completeness: upstairs → walk</b> ({cm[1][0
 s.append(P('<b>Edge cases in the data:</b> recordings from 4.5 s to 27 min (the 27-min sitting file alone gives 323 windows); a few phones at '
            '50-58 Hz, hence the per-file sampling-rate estimate; one lying file with a 20 s logging gap (those windows are skipped); a '
            '"walk" recording named "activity_1_-_cooking"; 3 recordings shorter than 5 s produce no window.', body))
-s.append(P(f'<b>Why not 80%?</b> We tried: 90 candidate features, 9 model families, 2-10 s windows, trimming recording ends, per-recording '
+s.append(P(f'<b>Where we hit a wall.</b> We tried a lot to push past this: 90 candidate features, 9 model families, 2-10 s windows, trimming recording ends, per-recording '
            'weighting and recording-level context features (research/exp6, exp9-18). The ceiling on unseen recordings is about '
            f'66-67%, and our numbers match published subject-independent results: UniMiB-SHAR reports 73% (9 classes) and 57% (17 classes) '
            'with leave-subject-out vs much higher with random splits. ExtraSensory reports leave-user-out per-class scores from 0.63 '
@@ -261,7 +261,7 @@ SimpleDocTemplate('exploration_report.pdf', pagesize=letter, leftMargin=0.6 * in
                   topMargin=0.55 * inch, bottomMargin=0.55 * inch, title='CS328 A2 Exploration Report').build(s)
 
 # ------------------------------------------------------------------ writeup
-w = [P('CS328 A2 — Writeup', h1)]
+w = [P('CS328 A2 Writeup', h1)]
 w.append(P('<b>Most important decision.</b> Going back to the three axes after the magnitude-only features stalled at 57%. A vertical '
            'proxy (motion projected on its main axis) and the residue Sensor Logger\'s gravity removal leaves on each axis raised '
            f'accuracy on unseen recordings to {p(fp["grouped_cv_window_acc"])} (recordings: {p(fp["grouped_cv_recording_acc"])}). Judging every '
@@ -273,7 +273,7 @@ w.append(P('<b>Next.</b> Log the gravity vector and barometer, add tilt and alti
            'evaluate leave-one-person-out once participant IDs are available.', body))
 w.append(P('<b>Contribution statement.</b> Harish Balakrishnan: set up the group repo and uploaded the starter notebook, util.py '
            'and class data. Vedant Naidu: data loading and windowing, feature engineering, model comparison and tuning, '
-           'failure analysis, exploration report and writeup.', body))
+           'failure analysis, exploration report and writeup. Aaryan: re-ran the notebook from scratch to verify results, checked every report number against the notebook, edited the report and writeup, and made sure everything was good to be submitted.', body))
 SimpleDocTemplate('writeup.pdf', pagesize=letter, leftMargin=0.8 * inch, rightMargin=0.8 * inch,
                   topMargin=0.7 * inch, bottomMargin=0.7 * inch, title='CS328 A2 Writeup').build(w)
 print('built')

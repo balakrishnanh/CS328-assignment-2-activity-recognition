@@ -561,7 +561,7 @@ FAILURE = r'''# Hints, step by step:
 # Compare: frames.groupby('activity')[FEATURES].median() vs the feature values of the failing window
 
 ########################### TODO ##########################
-# Final pipeline (report §3): 5 s windows, FEATURES, random forest with the Class_Data-tuned hyperparameters,
+# Final pipeline (report §3): 5 s windows, FEATURES, Extra Trees with the Class_Data-tuned hyperparameters,
 # majority vote per recording. Its confusion matrix comes from 5-fold CV on Class_Data with whole recordings
 # held out, so every window is predicted by a model that never saw its recording.
 final_make = lambda: make_et(best4)
