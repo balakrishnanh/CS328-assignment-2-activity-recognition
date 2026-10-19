@@ -1,0 +1,8 @@
+class_*.csv
+sample_*.csv
+research/*.pkl
+research/*.log
+research/outputs.txt
+research/A2_original.ipynb
+.ipynb_checkpoints/
+.DS_Store
